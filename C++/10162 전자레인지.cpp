@@ -16,11 +16,9 @@ int main()
 		cout << -1;
 		return 0;
 	}
-
 	cout << t / A << " ";
 	t %= A;
 	cout << t / B << " ";
 	t %= B;
 	cout << t / C << " ";
-	
 }
