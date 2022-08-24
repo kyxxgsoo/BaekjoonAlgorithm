@@ -8,11 +8,9 @@ using namespace std;
 
 int t;
 
-int main()
-{
+int main() {
 	cin >> t;
-	if (t % 10 != 0)
-	{
+	if (t % 10 != 0) {
 		cout << -1;
 		return 0;
 	}
