@@ -38,7 +38,9 @@ int main() {
         }
         
         tempIndex = max(tempIndex, water[i].first);
-        int cnt = (water[i].second - (tempIndex + 1)) / l + 1;
+        int waterLength = water[i].second - tempIndex;
+        int cnt = (waterLength) / l;
+        cnt += waterLength % l != 0 ? 1 : 0;
         ans += cnt;
         tempIndex += l * cnt;
     }
