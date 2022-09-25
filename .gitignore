@@ -3,3 +3,5 @@
 Swift.xcodeproj
 Swift-Bridging-Header.h
 Cpp.xcodeproj/*
+venv/
+.idea/
