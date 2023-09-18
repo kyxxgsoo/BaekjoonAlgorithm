@@ -2,13 +2,10 @@ from collections import deque
 import copy
 import sys
 
-global laboratoryMap
 # global visited
-global n
-global m
-global dx
-global dy
-global ans
+laboratoryMap = []
+n = 0
+m = 0
 ans = 0
 # visited = []
 dx = [-1, 0, 1, 0]
