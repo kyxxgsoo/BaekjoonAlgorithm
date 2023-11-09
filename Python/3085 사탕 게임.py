@@ -13,11 +13,13 @@ def check():
         colTemp = 1
         rowTemp = 1
         for j in range(n - 1):
+            # 옆으로 같은지(열)
             if arr[i][j] == arr[i][j + 1]:
                 colTemp += 1
             else:
                 colTemp = 1
 
+            # 위 아래로 같은지 (행)
             if arr[j][i] == arr[j + 1][i]:
                 rowTemp += 1
             else:
