@@ -105,14 +105,6 @@ public class P3190 {
     public static void main(String[] args) throws IOException {
         init();
 
-        // --------------- log ---------------
-//        Iterator<Snake> iter = snake.iterator();
-//        while (iter.hasNext()) {
-//            Snake part = iter.next();
-//            System.out.println(part.y + " " + part.x + " " + part.dir);
-//        }
-        // --------------- log ---------------
-
         int phase = 0;
         while (true) {
             phase++;
@@ -121,25 +113,11 @@ public class P3190 {
             int nextX = head.x + dx[head.dir];
             int nextDir = head.dir;
 
-
-//            // --------------- log ---------------
-//            System.out.println("phase : " + phase);
-//            if (!commands.isEmpty()) {
-//                System.out.println(commands.getFirst().phase + " " + commands.getFirst().cmd);
-//            }
-//            // --------------- log ---------------
-
             // 커맨드가 해당 페이즈에서 명령되어야되면
             if (!commands.isEmpty() && commands.getFirst().phase == phase) {
-//                // --------------- log ---------------
-//                System.out.println("COMMAND ON");
-//                // --------------- log ---------------
                 if (commands.getFirst().cmd == 'D') {
                     nextDir = (nextDir + 1) % 4;
                 } else if (commands.getFirst().cmd == 'L') {
-//                // ---------  ------ log ---------------
-//                    System.out.println(nextDir);
-//                // --------------- log ---------------
                     nextDir = nextDir - 1;
                     if (nextDir < 0) {
                         nextDir = nextDir + 4;
@@ -160,14 +138,6 @@ public class P3190 {
             } else {
                 snake.removeFirst();
             }
-
-//            // log
-//            Iterator<Snake> iter1 = snake.iterator();
-//            while (iter1.hasNext()) {
-//                Snake body = iter1.next();
-//                System.out.println(body.y + " " + body.x + " " + body.dir);
-//            }
-//            // log
         }
 
         bw.write(String.valueOf(phase));
