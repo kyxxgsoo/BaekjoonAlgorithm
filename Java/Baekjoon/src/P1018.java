@@ -9,7 +9,7 @@ public class P1018 {
 
     static int n;
     static int m;
-    static char[][] board;
+    static boolean[][] board;
     static int result;
 
 
@@ -18,60 +18,50 @@ public class P1018 {
         bw = new BufferedWriter(new OutputStreamWriter(System.out));
         st = new StringTokenizer(br.readLine());
 
-        n = Integer.parseInt(st.nextToken());
-        m = Integer.parseInt(st.nextToken());
-        board = new char[n][m];
         result = 64;
 
+        n = Integer.parseInt(st.nextToken());
+        m = Integer.parseInt(st.nextToken());
+        board = new boolean[n][m];
+
         for (int i = 0; i < n; i++) {
-            board[i] = br.readLine().toCharArray();
+            char[] row = br.readLine().toCharArray();
+            for (int j = 0; j < row.length; j++) {
+                if (row[j] == 'W') {
+                    board[i][j] = true;
+                } else {
+                    board[i][j] = false;
+                }
+            }
         }
     }
 
     static void solve(int x, int y) throws IOException {
-        int xEnd = x + 8;
-        int yEnd = y + 8;
-
-        char color = board[y][x];
-
+        int endX = x + 8;
+        int endY = y + 8;
+        boolean block = true;
         int cnt = 0;
-        for (int i = y; i < yEnd; i++) {
-            for (int j = x; j < xEnd; j++) {
-//                System.out.print(j + " ");
-//                System.out.print(i + " ");
-//                System.out.print(board[i][j] + " ");
-//                System.out.println(color);
-                if (board[i][j] != color) {
+
+        // 'w' 계산하고, 64 - cnt 해서 'b' 계산
+        for (int i = y; i < endY; i++) {
+            for (int j = x; j < endX; j++) {
+                // w이면
+                if (board[i][j] != block) {
                     cnt++;
                 }
-
-                if (color == 'W') {
-                    color = 'B';
-                } else {
-                    color = 'W';
-                }
+                block = !block;
             }
-
-            if (color == 'W') {
-                color = 'B';
-            } else {
-                color = 'W';
-            }
+            block = !block;
         }
-
-//        System.out.println(cnt);
-
         int min = Math.min(cnt, 64 - cnt);
-        if (min < result) {
-            result = min;
-        }
+        result = Math.min(min, result);
     }
 
     public static void main(String[] args) throws IOException {
         init();
 
-        for (int i = 0; i + 8 <= n; i++) {
-            for (int j = 0; j + 8 <= m; j++) {
+        for (int i = 0; i <= n - 8; i++) {
+            for (int j = 0; j <= m - 8; j++) {
                 solve(j, i);
             }
         }
@@ -81,6 +71,5 @@ public class P1018 {
         bw.flush();
         bw.close();
         br.close();
-
     }
 }
