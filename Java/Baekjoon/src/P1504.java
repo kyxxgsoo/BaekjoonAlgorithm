@@ -90,37 +90,17 @@ public class P1504 {
         v1 = Integer.parseInt(st.nextToken());
         v2 = Integer.parseInt(st.nextToken());
 
-        int firstPath1 = dijkstra(1, v1);
-        int firstPath2 = dijkstra(v1, v2);
-        int firstPath3 = dijkstra(v2, n);
-
-//        System.out.println(firstPath1 + " + " + firstPath2 + " + " + firstPath3);
-
-        int secondPath1 = dijkstra(1, v2);
-        int secondPath2 = dijkstra(v2, v1);
-        int secondPath3 = dijkstra(v1, n);
-
-//        System.out.println(secondPath1 + " + " + secondPath2 + " + " + secondPath3);
-
-
-        int firstPathResult = 0;
-        int secondPathResult = 0;
-
-        if (firstPath1 != -1 && firstPath2 != -1 && firstPath3 != -1) {
-            firstPathResult = firstPath1 + firstPath2 + firstPath3;
-        } else {
-            firstPathResult = Integer.MAX_VALUE;
-        }
-
-        if (secondPath1 != -1 && secondPath2 != -1 && secondPath3 != -1) {
-            secondPathResult = secondPath1 + secondPath2 + secondPath3;
-        } else {
-            secondPathResult = Integer.MAX_VALUE;
-        }
+        int firstPathResult = mergePath(dijkstra(1, v1), dijkstra(v1, v2), dijkstra(v2, n));
+        int secondPathResult = mergePath(dijkstra(1, v2), dijkstra(v2, v1), dijkstra(v1, n));
 
         answer = Math.min(firstPathResult, secondPathResult) != Integer.MAX_VALUE ? Math.min(firstPathResult, secondPathResult) : -1;
+    }
 
-
+    static int mergePath(int p1, int p2, int p3) {
+        if (p1 != -1 && p2 != -1 && p3 != -1) {
+            return p1 + p2 + p3;
+        }
+        return Integer.MAX_VALUE;
     }
 
     static int dijkstra(int start, int end) throws IOException {
