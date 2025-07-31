@@ -10,7 +10,6 @@ public class Default {
     static void init() throws IOException {
         br = new BufferedReader(new InputStreamReader(System.in));
         bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        st = new StringTokenizer(br.readLine());
     }
 
     static void solve() throws IOException {
