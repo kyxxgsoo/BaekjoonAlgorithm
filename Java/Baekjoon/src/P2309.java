@@ -5,62 +5,76 @@ public class P2309 {
 
     static BufferedReader br;
     static BufferedWriter bw;
-    static int[] arr;
-    static boolean[] check;
-    static ArrayList<Integer> result;
-    static boolean isFind;
+
+    static StringTokenizer st;
+    static int[] heights;
+    static int[] output;
+    static boolean endFlag;
 
     static void init() throws IOException {
         br = new BufferedReader(new InputStreamReader(System.in));
         bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        arr = new int[9];
-        check = new boolean[9];
-        result = new ArrayList<>();
-        isFind = false;
 
-        for (int i = 0; i < 9; i++) {
-            int n = Integer.parseInt(br.readLine());
-            arr[i] = n;
+        heights = new int[9];
+        output = new int[7];
+        endFlag = false;
+
+        for (int i = 0; i < heights.length; i++) {
+            heights[i] = Integer.parseInt(br.readLine());
         }
     }
 
-    static void solve(int cnt, int sum) throws IOException {
-        if (cnt == 7 && sum == 100) {
-            // 오름차순 정렬
-            Collections.sort(result);
-            for (int i = 0; i < result.size(); i++) {
-                bw.write(String.valueOf(result.get(i)));
-                bw.newLine();
-            }
-            isFind = true;
+    static void solve() throws IOException {
+        dfs1(0);
+    }
+
+    static void swap(int a, int b) {
+        int temp = heights[a];
+        heights[a] = heights[b];
+        heights[b] = temp;
+    }
+
+    static void dfs1(int depth) throws IOException {
+        if (endFlag) {
             return;
         }
 
-        if (isFind) {
-            return;
-        }
-        if (cnt >= 7) {
-            return;
-        }
-        if (sum >= 100) {
+        if (depth == 7) {
+            if (isOneHundred()) {
+                endFlag = true;
+                print();
+            }
             return;
         }
 
-        for (int i = 0; i < 9; i++) {
-            if (!check[i]) {
-                check[i] = true;
-                result.add(arr[i]);
-                solve(cnt + 1, sum + arr[i]);
-                check[i] = false;
-                result.remove(result.size() - 1);
-            }
+        for (int i = depth; i < heights.length; i++) {
+            swap(depth, i);
+            dfs1(depth + 1);
+            swap(depth, i);
         }
+    }
+
+    static void print() throws IOException {
+        for (int i = 0; i < 7; i++) {
+            output[i] = heights[i];
+        }
+        Arrays.sort(output);
+        for (int i = 0; i < 7; i++) {
+            bw.write(output[i] + "\n");
+        }
+    }
+
+    static boolean isOneHundred() {
+        int sum = 0;
+        for (int i = 0; i < 7; i++) {
+            sum += heights[i];
+        }
+        return sum == 100;
     }
 
     public static void main(String[] args) throws IOException {
         init();
-
-        solve(0, 0);
+        solve();
 
         bw.flush();
         bw.close();
