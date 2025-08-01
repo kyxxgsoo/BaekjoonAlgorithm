@@ -24,21 +24,19 @@ public class P2559 {
         N = Integer.parseInt(st.nextToken());
         K = Integer.parseInt(st.nextToken());
 
-        arr = new int[N];
-        pSum = new int[N];
-        answer = 0;
+        arr = new int[N + 1];
+        pSum = new int[N + 1];
+        answer = -10000001;
 
         st = new StringTokenizer(br.readLine());
 
         // arr 초기화
-        for (int i = 0; i < N; i++) {
+        for (int i = 1; i <= N; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        pSum[0] = arr[0];
-
         // 누적합 구하기
-        for (int i = 1; i < N; i++) {
+        for (int i = 1; i <= N; i++) {
             pSum[i] = pSum[i - 1] + arr[i];
         }
     }
@@ -55,8 +53,7 @@ public class P2559 {
         // [log] pSum
 //        printPrefixSum();
 
-        answer = pSum[K - 1];
-        for (int i = K; i < N; i++) {
+        for (int i = K; i <= N; i++) {
             answer = Math.max(answer, pSum[i] - pSum[i - K]);
         }
         bw.write(answer + "");
